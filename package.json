@@ -4,16 +4,23 @@
   "private": true,
   "description": "React frontend for a simple personal to-do app",
   "workspaces": [
-    "client"
+    "client",
+    "server"
   ],
   "scripts": {
-    "dev": "npm run dev -w client",
-    "start": "npm run preview -w client",
+    "dev": "concurrently -k -n api,web \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:client": "npm run dev -w client",
+    "dev:server": "npm run dev -w server",
+    "start": "npm run start -w server",
+    "start:client": "npm run preview -w client",
     "build": "npm run build -w client",
     "lint": "npm run lint -w client",
     "test": "npm run test -w client"
   },
   "engines": {
     "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
   }
 }
